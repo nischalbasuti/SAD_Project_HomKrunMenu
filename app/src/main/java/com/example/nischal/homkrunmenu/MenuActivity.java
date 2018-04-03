@@ -1,4 +1,5 @@
 package com.example.nischal.homkrunmenu;
+import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,6 +10,9 @@ import android.widget.AdapterView;
 import android.widget.CheckedTextView;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.example.nischal.homkrunmenu.persistence.AppDatabase;
+import com.example.nischal.homkrunmenu.persistence.Product;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,13 +25,15 @@ public class MenuActivity extends AppCompatActivity implements AdapterView.OnIte
     private final String TAG = "MenuActivity";
 
     ArrayList<MenuItem> selectedItems = new ArrayList<>();
-
+    AppDatabase database;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
         //TODO: Initialize database
+        database = Room.databaseBuilder(getApplicationContext(),
+                AppDatabase.class, "database_name").allowMainThreadQueries().build();
 
         // Get menu items and store in menuItems. ##################################################
         final LinkedList<MenuItem> menuItems = getMenuItems();
@@ -45,6 +51,12 @@ public class MenuActivity extends AppCompatActivity implements AdapterView.OnIte
         // Get the checkout floating action button and set it's onclicklistener
         FloatingActionButton fab = findViewById(R.id.checkoutFab);
         fab.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
     }
 
     // Handles clicks on the listview Items ########################################################
@@ -101,7 +113,7 @@ public class MenuActivity extends AppCompatActivity implements AdapterView.OnIte
                 }
 
                 // Pass the final build order json object to new activity as a string.
-                Intent intent = new Intent(this, ItemActivity.class);
+                Intent intent = new Intent(this, OrderActivity.class);
                 intent.putExtra("OrderJsonString", OrderJsonObject.toString());
                 startActivity(intent);
 
@@ -111,10 +123,12 @@ public class MenuActivity extends AppCompatActivity implements AdapterView.OnIte
 
     // Get the products and return them as LinkedList<menuItems>.
     private LinkedList<MenuItem> getMenuItems() {
-        //TODO: get the menu items from database and returns as a LinkedList<menuItem>
         final LinkedList<MenuItem> menuItems = new LinkedList<>();
-        for(int i = 0; i < 30; i++){
-            menuItems.add(new MenuItem("title"+i, i));
+//        for(int i = 0; i < 30; i++){
+//            menuItems.add(new MenuItem("name"+i, i));
+//        }
+        for(Product product : database.productDao().getAll()) {
+            menuItems.add(new MenuItem(product.getName(), product.getPrice()));
         }
         return menuItems;
     }

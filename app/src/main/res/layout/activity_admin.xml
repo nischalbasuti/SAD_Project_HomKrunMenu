@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.nischal.homkrunmenu.AdminActivity">
+    <EditText
+        android:id="@+id/newProductIdEt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:hint="product id"
+        />
+    <EditText
+        android:id="@+id/newProductNameEt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/newProductIdEt"
+        android:hint="product name"
+        />
+    <EditText
+        android:id="@+id/newProductPriceEt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/newProductNameEt"
+        android:hint="product price"
+        />
+    <Button
+        android:id="@+id/newProductButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/newProductPriceEt"
+        android:layout_alignParentRight="true"
+        android:text="add product"/>
+    <Button
+        android:id="@+id/getProductButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/newProductButton"
+        android:layout_alignParentRight="true"
+        android:text="get product"/>
+    <Button
+        android:id="@+id/deleteProductButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/getProductButton"
+        android:layout_alignParentRight="true"
+        android:text="delete product"/>
+</RelativeLayout>
