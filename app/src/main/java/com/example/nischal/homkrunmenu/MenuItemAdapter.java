@@ -44,9 +44,9 @@ public class MenuItemAdapter extends ArrayAdapter<MenuItem> {
         }
 
         MenuItem menuItem = getItem(position);
-
+        String description = menuItem.getPrice()+"";
         mViewHolder.title.setText(menuItem.getTitle());
-        mViewHolder.description.setText(menuItem.getDescription());
+        mViewHolder.description.setText(description);
 
         return convertView;
     }

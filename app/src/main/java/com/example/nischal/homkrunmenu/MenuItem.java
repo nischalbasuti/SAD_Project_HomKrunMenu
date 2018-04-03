@@ -4,13 +4,15 @@ package com.example.nischal.homkrunmenu;
  * Created by nischal on 4/2/18.
  */
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class MenuItem {
     private String title;
-    private String description;
-
-    public MenuItem(String title, String description) {
+    private int price;
+    public MenuItem(String title, int price) {
         this.title = title;
-        this.description = description;
+        this.price = price;
     }
 
     public MenuItem() {
@@ -24,12 +26,18 @@ public class MenuItem {
         this.title = title;
     }
 
-    public String getDescription() {
-        return description;
+    public int getPrice() {
+        return price;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setPrice(int price) {
+        this.price = price;
     }
 
+    public JSONObject getJsonObject() throws JSONException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("name",this.title);
+        jsonObject.put("price", this.price);
+        return jsonObject;
+    }
 }

@@ -3,6 +3,15 @@
     android:layout_height="?android:attr/listPreferredItemHeight"
     android:padding="6dip" >
 
+    <CheckedTextView
+        android:id="@+id/menuItemCheckbox"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="?android:attr/listPreferredItemHeight"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:gravity="center_vertical"
+        android:checkMark="?android:attr/listChoiceIndicatorMultiple" />
     <ImageView
         android:id="@+id/icon"
         android:layout_width="wrap_content"
@@ -21,7 +30,7 @@
         android:layout_alignParentRight="true"
         android:layout_toRightOf="@id/icon"
         android:ellipsize="marquee"
-        android:text="Description"
+        android:text="Price"
         android:textSize="12sp"
         android:singleLine="true" />
 
