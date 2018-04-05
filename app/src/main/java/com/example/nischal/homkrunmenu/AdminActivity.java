@@ -1,6 +1,7 @@
 package com.example.nischal.homkrunmenu;
 
 import android.arch.persistence.room.Room;
+import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import com.example.nischal.homkrunmenu.persistence.Product;
 public class AdminActivity extends AppCompatActivity implements View.OnClickListener {
 
     AppDatabase database;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,8 +50,8 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
 
         switch (view.getId()) {
             case R.id.newProductButton:
-                if(newProductIdEt.getText().length() <= 0 || newProductPriceEt.length() <=0) {
-
+                //TODO: make sure price is an int.
+                if(newProductNameEt.getText().length() <= 0 || newProductPriceEt.length() <=0) {
                     return;
                 }
                 product.setName(newProductNameEt.getText().toString());

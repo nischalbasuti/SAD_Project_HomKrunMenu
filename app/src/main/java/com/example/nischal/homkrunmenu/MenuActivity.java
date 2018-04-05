@@ -1,6 +1,8 @@
 package com.example.nischal.homkrunmenu;
 import android.arch.persistence.room.Room;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +23,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import static android.preference.PreferenceManager.getDefaultSharedPreferences;
+
 public class MenuActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener {
     private final String TAG = "MenuActivity";
 
@@ -33,7 +37,10 @@ public class MenuActivity extends AppCompatActivity implements AdapterView.OnIte
 
         //TODO: Initialize database
         database = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "database_name").allowMainThreadQueries().build();
+                AppDatabase.class, "database_name")
+                .allowMainThreadQueries()
+                .fallbackToDestructiveMigration()
+                .build();
 
         // Get menu items and store in menuItems. ##################################################
         final LinkedList<MenuItem> menuItems = getMenuItems();
@@ -86,6 +93,19 @@ public class MenuActivity extends AppCompatActivity implements AdapterView.OnIte
                     return;
                 }
 
+
+                // Doing stuff to generate order id.
+                SharedPreferences sharedPref = getDefaultSharedPreferences(this);
+                // Get the last order id.
+                int lastId = 0;
+                lastId = sharedPref.getInt("last_generated_id_key", lastId);
+
+                // Generate and save the new order id.
+                int currentId = lastId + 1;
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putInt("last_generated_id_key", currentId);
+                editor.commit();
+
                 // Build a json object with order information (order id, total cost amount,
                 // and products ordered)
                 JSONObject OrderJsonObject = new JSONObject();
@@ -104,8 +124,9 @@ public class MenuActivity extends AppCompatActivity implements AdapterView.OnIte
                     }
                 }
                 try {
-                    OrderJsonObject.put("id", -1); // TODO: find out how to generate unique order id.
-                    OrderJsonObject.put("amount", totalAmount); //TODO: calculate actual total amount.
+                    OrderJsonObject.put("store_id", 1); //TODO: find a way to generate unique store id.
+                    OrderJsonObject.put("id", currentId); // TODO: find out how to generate unique order id.
+                    OrderJsonObject.put("amount", totalAmount);
                     OrderJsonObject.put("products", products);
                 } catch (JSONException e) {
                     //TODO: gracefully handel exception

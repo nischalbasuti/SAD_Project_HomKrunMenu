@@ -14,7 +14,7 @@ import org.json.JSONObject;
 
 @Entity
 public class Product {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int id;
 
     @ColumnInfo(name = "name")
