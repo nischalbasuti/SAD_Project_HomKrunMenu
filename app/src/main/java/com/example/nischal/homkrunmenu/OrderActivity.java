@@ -20,12 +20,14 @@ import io.jsonwebtoken.impl.TextCodec;
 
 public class OrderActivity extends AppCompatActivity {
 
-    ImageView QRCodeIv = findViewById(R.id.QRCodeIv);
+    ImageView QRCodeIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
+
+        QRCodeIv = findViewById(R.id.QRCodeIv);
         String orderJsonString = getIntent().getExtras().getString("OrderJsonString");
         this.getSupportActionBar().setTitle("Order Summary");
         ((TextView)findViewById(R.id.orderSummaryTv)).setText(orderJsonString);
