@@ -38,4 +38,12 @@ dependencies {
 //
 //    // Guava support for Room
 //    implementation "android.arch.persistence.room:guava:1.1.0-beta1"
+
+
+    // This one is for message authentication code using jwt
+    implementation 'io.jsonwebtoken:jjwt:0.9.0'
+
+    // Library for handling QR code
+    implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
+    implementation 'com.google.zxing:core:3.3.2'
 }
