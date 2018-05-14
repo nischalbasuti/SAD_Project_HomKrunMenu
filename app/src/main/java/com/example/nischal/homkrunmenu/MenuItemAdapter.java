@@ -6,7 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.TextClock;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -16,8 +20,11 @@ import java.util.List;
 
 public class MenuItemAdapter extends ArrayAdapter<MenuItem> {
     class ViewHolder {
-        public TextView title;
-        public TextView description;
+        public TextView titleTv;
+        public TextView descriptionTv;
+        public TextView countTv;
+        public ImageView plusOneIv;
+        public ImageView minusOneIv;
     }
 
     private ViewHolder mViewHolder;
@@ -35,18 +42,44 @@ public class MenuItemAdapter extends ArrayAdapter<MenuItem> {
             convertView = mLayoutInflater.inflate(R.layout.menu_item, parent, false);
 
             mViewHolder = new ViewHolder();
-            mViewHolder.title = (TextView) convertView.findViewById(R.id.menuItemTitle);
-            mViewHolder.description = (TextView) convertView.findViewById(R.id.menuItemDescription);
+            mViewHolder.titleTv = (TextView) convertView.findViewById(R.id.menuItemTitle);
+            mViewHolder.descriptionTv = (TextView) convertView.findViewById(R.id.menuItemDescription);
+            mViewHolder.countTv = (TextView) convertView.findViewById(R.id.menuItemCount);
+            mViewHolder.plusOneIv = (ImageView) convertView.findViewById(R.id.plusOne);
+            mViewHolder.minusOneIv = (ImageView) convertView.findViewById(R.id.minusOne);
 
             convertView.setTag(mViewHolder);
         } else {
             mViewHolder = (ViewHolder) convertView.getTag();
         }
 
-        MenuItem menuItem = getItem(position);
+        final View finalConverView = convertView;
+
+        final MenuItem menuItem = getItem(position);
         String description = menuItem.getPrice()+"";
-        mViewHolder.title.setText(menuItem.getTitle());
-        mViewHolder.description.setText(description);
+
+        mViewHolder.titleTv.setText(menuItem.getTitle());
+        mViewHolder.descriptionTv.setText(description);
+
+        mViewHolder.countTv.setText(menuItem.getCount()+"");
+
+        mViewHolder.plusOneIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                menuItem.countPlusOne();
+                ((TextView)finalConverView.findViewById(R.id.menuItemCount)).setText(menuItem.getCount()+"");
+//                mViewHolder.countTv.setText(menuItem.getCount()+"");
+            }
+        });
+
+        mViewHolder.minusOneIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                menuItem.countMinusOne();
+                ((TextView)finalConverView.findViewById(R.id.menuItemCount)).setText(menuItem.getCount()+"");
+//                mViewHolder.countTv.setText(menuItem.getCount()+"");
+            }
+        });
 
         return convertView;
     }

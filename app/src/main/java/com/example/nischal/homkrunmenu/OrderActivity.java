@@ -30,7 +30,7 @@ public class OrderActivity extends AppCompatActivity {
 
         QRCodeIv = findViewById(R.id.QRCodeIv);
         String orderJsonString = getIntent().getExtras().getString("OrderJsonString");
-        Log.d("ORDER JSON STRING:::::::::::::::::::::: ", orderJsonString);
+        Log.d("ORDER JSON STRING", orderJsonString);
         this.getSupportActionBar().setTitle("Order Summary");
         ((TextView)findViewById(R.id.orderSummaryTv)).setText(orderJsonString);
 

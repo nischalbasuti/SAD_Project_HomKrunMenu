@@ -1,6 +1,5 @@
 package com.example.nischal.homkrunmenu;
 import android.arch.persistence.room.Room;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.CheckedTextView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -29,21 +27,23 @@ public class MenuActivity extends AppCompatActivity implements AdapterView.OnIte
     private final String TAG = "MenuActivity";
 
     ArrayList<MenuItem> selectedItems = new ArrayList<>();
+    private LinkedList<MenuItem> menuItems;
+
     AppDatabase database;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        //TODO: Initialize database
+        // Initialize database
         database = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "database_name")
                 .allowMainThreadQueries()
                 .fallbackToDestructiveMigration()
                 .build();
-
-        // Get menu items and store in menuItems. ##################################################
-        final LinkedList<MenuItem> menuItems = getMenuItems();
+        // Get menu items
+        this.menuItems = this.getMenuItems();
 
         // Initialize ListView for menu items and it's adapter. ####################################
         // Attach menuItems to menuItemsAdapter.
@@ -70,16 +70,15 @@ public class MenuActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
         MenuItem currentItem = ((MenuItem)adapterView.getAdapter().getItem(position));
-        CheckedTextView checkedTextView = view.findViewById(R.id.menuItemCheckbox);
 
         // Add/remove items to/from this.selectedItems and change UI stuff.
-        if (checkedTextView.isChecked()) {
-            checkedTextView.setChecked(false);
-            this.selectedItems.remove(currentItem);
-        } else {
-            checkedTextView.setChecked(true);
-            this.selectedItems.add(currentItem);
-        }
+//        if (checkedTextView.isChecked()) {
+//            checkedTextView.setChecked(false);
+//            this.selectedItems.remove(currentItem);
+//        } else {
+//        ((TextView)view.findViewById(R.id.menuItemCount)).setText(currentItem.getCount()+"");
+//            this.selectedItems.add(currentItem);
+//        }
     }
 
     // Handle clicks on this Activity ##############################################################
@@ -87,12 +86,16 @@ public class MenuActivity extends AppCompatActivity implements AdapterView.OnIte
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.checkoutFab:
+                for (MenuItem menuItem : this.menuItems) {
+                    for (int i = 0; i < menuItem.getCount(); i++) {
+                        this.selectedItems.add(menuItem);
+                    }
+                }
                 if(this.selectedItems.size() == 0) {
                     // Handle case when no item is selected.
                     Toast.makeText(this, "No items selected!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
 
                 // Doing stuff to generate order id.
                 SharedPreferences sharedPref = getDefaultSharedPreferences(this);
@@ -145,9 +148,6 @@ public class MenuActivity extends AppCompatActivity implements AdapterView.OnIte
     // Get the products and return them as LinkedList<menuItems>.
     private LinkedList<MenuItem> getMenuItems() {
         final LinkedList<MenuItem> menuItems = new LinkedList<>();
-//        for(int i = 0; i < 30; i++){
-//            menuItems.add(new MenuItem("name"+i, i));
-//        }
         for(Product product : database.productDao().getAll()) {
             menuItems.add(new MenuItem(product.getName(), product.getPrice()));
         }

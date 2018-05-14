@@ -3,15 +3,35 @@
     android:layout_height="?android:attr/listPreferredItemHeight"
     android:padding="6dip" >
 
-    <CheckedTextView
-        android:id="@+id/menuItemCheckbox"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="?android:attr/listPreferredItemHeight"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:gravity="center_vertical"
-        android:checkMark="?android:attr/listChoiceIndicatorMultiple" />
+    <ImageView
+        android:id="@+id/plusOne"
+        android:layout_width="30dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/plus_one"
+        android:focusable="false"
+        />
+    <TextView
+        android:id="@+id/menuItemCount"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/plusOne"
+        android:textAlignment="center"
+        android:text="0"
+        android:textColor="@color/colorPrimary"
+        />
+    <ImageView
+        android:id="@+id/minusOne"
+        android:layout_width="30dp"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/menuItemCount"
+        android:src="@drawable/minus_one"
+        android:focusable="false"
+        />
+
     <ImageView
         android:id="@+id/icon"
         android:layout_width="wrap_content"
