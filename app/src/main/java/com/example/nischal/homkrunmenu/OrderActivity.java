@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,13 +30,14 @@ public class OrderActivity extends AppCompatActivity {
 
         QRCodeIv = findViewById(R.id.QRCodeIv);
         String orderJsonString = getIntent().getExtras().getString("OrderJsonString");
+        Log.d("ORDER JSON STRING:::::::::::::::::::::: ", orderJsonString);
         this.getSupportActionBar().setTitle("Order Summary");
         ((TextView)findViewById(R.id.orderSummaryTv)).setText(orderJsonString);
 
         // Create Message Authentication Code for order data
         String orderCompactJws = Jwts.builder()
                 .setSubject(orderJsonString)
-                .signWith(SignatureAlgorithm.HS512, TextCodec.BASE64.encode("secret"))
+                .signWith(SignatureAlgorithm.HS256, TextCodec.BASE64.encode("secret"))
                 .compact();
 
         // Generate QR code represents the encoded order

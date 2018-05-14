@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/HomKrunMenu.iml" filepath="$PROJECT_DIR$/HomKrunMenu.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SAD_Project_HomKrunMenu.iml" filepath="$PROJECT_DIR$/SAD_Project_HomKrunMenu.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

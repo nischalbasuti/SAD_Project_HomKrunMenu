@@ -126,7 +126,7 @@ public class MenuActivity extends AppCompatActivity implements AdapterView.OnIte
                 try {
                     OrderJsonObject.put("store_id", 1); //TODO: find a way to generate unique store id.
                     OrderJsonObject.put("id", currentId); // TODO: find out how to generate unique order id.
-                    OrderJsonObject.put("amount", totalAmount);
+                    OrderJsonObject.put("total_price", totalAmount);
                     OrderJsonObject.put("products", products);
                 } catch (JSONException e) {
                     //TODO: gracefully handel exception

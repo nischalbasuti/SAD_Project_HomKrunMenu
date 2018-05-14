@@ -36,8 +36,8 @@ public class MenuItem {
 
     public JSONObject getJsonObject() throws JSONException {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("name",this.title);
-        jsonObject.put("price", this.price);
+        jsonObject.put("n",this.title);
+        jsonObject.put("p", this.price);
         return jsonObject;
     }
 }
