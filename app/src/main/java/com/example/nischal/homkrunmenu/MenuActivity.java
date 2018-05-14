@@ -23,7 +23,7 @@ import java.util.LinkedList;
 
 import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 
-public class MenuActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener {
+public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
     private final String TAG = "MenuActivity";
 
     ArrayList<MenuItem> selectedItems = new ArrayList<>();
@@ -53,8 +53,6 @@ public class MenuActivity extends AppCompatActivity implements AdapterView.OnIte
         menuItemsListView.setAdapter(menuItemAdapter);
         menuItemAdapter.notifyDataSetChanged();
 
-        menuItemsListView.setOnItemClickListener(this);
-
         // Get the checkout floating action button and set it's onclicklistener
         FloatingActionButton fab = findViewById(R.id.checkoutFab);
         fab.setOnClickListener(this);
@@ -64,21 +62,6 @@ public class MenuActivity extends AppCompatActivity implements AdapterView.OnIte
     protected void onPause() {
         super.onPause();
         finish();
-    }
-
-    // Handles clicks on the listview Items ########################################################
-    @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-        MenuItem currentItem = ((MenuItem)adapterView.getAdapter().getItem(position));
-
-        // Add/remove items to/from this.selectedItems and change UI stuff.
-//        if (checkedTextView.isChecked()) {
-//            checkedTextView.setChecked(false);
-//            this.selectedItems.remove(currentItem);
-//        } else {
-//        ((TextView)view.findViewById(R.id.menuItemCount)).setText(currentItem.getCount()+"");
-//            this.selectedItems.add(currentItem);
-//        }
     }
 
     // Handle clicks on this Activity ##############################################################
