@@ -22,5 +22,5 @@
         android:minHeight="100pt"
         android:minWidth="100pt"
         android:src="@drawable/ic_launcher_background"
-        android:layout_margin="50dp"/>
+        android:layout_marginTop="50dp"/>
 </RelativeLayout>

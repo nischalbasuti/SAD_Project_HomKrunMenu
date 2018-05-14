@@ -53,22 +53,20 @@ public class MenuItemAdapter extends ArrayAdapter<MenuItem> {
             mViewHolder = (ViewHolder) convertView.getTag();
         }
 
-        final View finalConverView = convertView;
+        final TextView finalCountTv = ((TextView)convertView.findViewById(R.id.menuItemCount));
 
         final MenuItem menuItem = getItem(position);
         String description = menuItem.getPrice()+"";
 
         mViewHolder.titleTv.setText(menuItem.getTitle());
         mViewHolder.descriptionTv.setText(description);
-
         mViewHolder.countTv.setText(menuItem.getCount()+"");
 
         mViewHolder.plusOneIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 menuItem.countPlusOne();
-                ((TextView)finalConverView.findViewById(R.id.menuItemCount)).setText(menuItem.getCount()+"");
-//                mViewHolder.countTv.setText(menuItem.getCount()+"");
+                finalCountTv.setText(menuItem.getCount()+"");
             }
         });
 
@@ -76,8 +74,7 @@ public class MenuItemAdapter extends ArrayAdapter<MenuItem> {
             @Override
             public void onClick(View view) {
                 menuItem.countMinusOne();
-                ((TextView)finalConverView.findViewById(R.id.menuItemCount)).setText(menuItem.getCount()+"");
-//                mViewHolder.countTv.setText(menuItem.getCount()+"");
+                finalCountTv.setText(menuItem.getCount()+"");
             }
         });
 
