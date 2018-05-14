@@ -44,6 +44,7 @@ public class MenuItem {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("n",this.title);
         jsonObject.put("p", this.price);
+        jsonObject.put("a", this.count);
         return jsonObject;
     }
 

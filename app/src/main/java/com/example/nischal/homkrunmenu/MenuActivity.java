@@ -70,7 +70,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()) {
             case R.id.checkoutFab:
                 for (MenuItem menuItem : this.menuItems) {
-                    for (int i = 0; i < menuItem.getCount(); i++) {
+                    if(menuItem.getCount() > 0) {
                         this.selectedItems.add(menuItem);
                     }
                 }
@@ -114,6 +114,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
                     OrderJsonObject.put("id", currentId); // TODO: find out how to generate unique order id.
                     OrderJsonObject.put("total_price", totalAmount);
                     OrderJsonObject.put("products", products);
+                    OrderJsonObject.put("url", "http://foobar.com/"); //TODO: change url
                 } catch (JSONException e) {
                     //TODO: gracefully handel exception
                     e.printStackTrace();
